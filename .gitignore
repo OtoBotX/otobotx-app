@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+# android
+android/
+
 # VS Code
 .vscode/*
 
@@ -38,4 +41,5 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# example project for reference
 app-example
