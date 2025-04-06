@@ -1,0 +1,158 @@
+name: EAS Build
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+      - release/*
+  push:
+    branches:
+      - main
+      - develop
+      - release/*
+  workflow_dispatch:
+    inputs:
+      android:
+        description: "Build Android"
+        required: false
+        default: true
+        type: boolean
+      ios:
+        description: "Build iOS"
+        required: false
+        default: false # Minutes for Mac cost x10 compared to Linux runners
+        type: boolean
+      web:
+        description: "Build Web"
+        required: false
+        default: true
+        type: boolean
+      profile:
+        description: "Select EAS Build Profile"
+        required: true
+        default: development
+        type: choice
+        options:
+          - development
+#          - production # production build is not yet enabled, requires Android / App Store Developer Accounts
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  set-build-profile:
+    name: Set Build Profile
+    runs-on: ubuntu-latest
+    outputs:
+      PROFILE: ${{ steps.set_profile.outputs.PROFILE }}
+    steps:
+      - name: Set Build Profile
+        id: set_profile
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "PROFILE=development" >> "$GITHUB_OUTPUT"
+          else
+            echo "PROFILE=${{ github.event.inputs.profile }}" >> "$GITHUB_OUTPUT"
+          fi
+
+  build-android:
+    name: Android Build
+    runs-on: ubuntu-latest
+    needs: set-build-profile
+    if: ${{ github.event.inputs.android == 'true' || github.event_name == 'pull_request' || github.event_name == 'push' }} 
+    env:
+      PROFILE: ${{ needs.set-build-profile.outputs.PROFILE }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          eas-cache: true
+          packager: npm
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 📲 Build Android Artifact
+        run: eas build --platform android --local --profile ${{ env.PROFILE }} --non-interactive
+
+      - name: 🚀 Upload Android Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-otobotx-${{ github.sha }}
+          path: build-*.apk
+
+  build-ios:
+    name: iOS Build
+    runs-on: macos-latest
+    needs: set-build-profile
+    if: ${{ github.event.inputs.ios == 'true' || github.event_name == 'pull_request' || github.event_name == 'push' }}
+    env:
+      PROFILE: ${{ needs.set-build-profile.outputs.PROFILE }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          eas-cache: true
+          packager: npm
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 📲 Build iOS Artifact
+        run: eas build --platform ios --local --profile ${{ env.PROFILE }} --non-interactive
+
+      - name: 🚀 Upload iOS Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-otobotx-${{ github.sha }}
+          path: build-*.tar.gz
+
+  build-web:
+    name: Web Build
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.web == 'true' || github.event_name == 'pull_request' || github.event_name == 'push' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          eas-cache: true
+          packager: npm
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 💻 Build Web Artifact
+        run: npx expo export -p web

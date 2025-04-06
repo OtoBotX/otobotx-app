@@ -1,0 +1,28 @@
+{
+  "cli": {
+    "version": ">= 14.4.1",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development": {
+      "withoutCredentials": true,
+      "env": {
+        "ENV": "development"
+      },
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "ios": {
+        "distribution": "store"
+      }
+    }
+  }
+}
