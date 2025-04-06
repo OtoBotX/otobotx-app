@@ -19,6 +19,7 @@ Designed for internal use within a **mid-sized company**, the app aims to **auto
 - [🗂️ Folder Structure](https://github.com/OtoBotX/otobotx-app/tree/develop/docs/structure.md)
 - [🛣️ Roadmap](https://github.com/OtoBotX/otobotx-app/tree/develop/docs/roadmap.md)
 - [🤝 Contributing](https://github.com/OtoBotX/otobotx-app/tree/develop/CONTRIBUTING.md)
+- [🔐 Security](https://github.com/OtoBotX/otobotx-app/tree/develop/SECURITY.md)
 
 ## Get started
 
