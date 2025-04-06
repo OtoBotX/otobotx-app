@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
+    "@legendapp/state": "^3.0.0-beta.30",
     "expo": "~52.0.43",
     "expo-constants": "~17.0.8",
     "expo-font": "~13.0.4",
