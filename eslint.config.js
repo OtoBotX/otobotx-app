@@ -6,14 +6,17 @@ import tsParser from '@typescript-eslint/parser'
 
 export default [
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
         sourceType: 'module',
         ecmaVersion: 'latest',
         project: './tsconfig.json', 
-        tsconfigRootDir: process.cwd(),
+        tsconfigRootDir: process.cwd(),        
+      },
+      globals: {
+        process: 'readonly',
       },
     },
     plugins: {
