@@ -1,12 +1,9 @@
 import { Slot } from 'expo-router';
 import { PaperProvider } from 'react-native-paper';
-import { useAppTheme } from '@/theme';
-import { useSelector } from '@legendapp/state/react';
-import { themeStore } from '@/stores/themeStore';
+import { useThemeHandler } from '@/hooks/useThemeHandler';
 
 export default function Layout() {
-  const mode = useSelector(() => themeStore.mode.get());
-  const theme = useAppTheme();
+  const { theme } = useThemeHandler();
   return (
     <PaperProvider theme={theme}>
       <Slot />
