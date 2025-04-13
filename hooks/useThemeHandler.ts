@@ -1,8 +1,8 @@
-import { useColorScheme } from 'react-native';
-import { themeStore$ } from '@/stores/themeStore';
-import { darkTheme, lightTheme } from '@/theme';
-import { use$ } from '@legendapp/state/react';
-import { useMemo } from 'react';
+import { useColorScheme } from "react-native";
+import { themeStore$ } from "@/stores/themeStore";
+import { darkTheme, lightTheme } from "@/theme";
+import { use$ } from "@legendapp/state/react";
+import { useMemo } from "react";
 
 export function useThemeHandler() {
   // User-set color scheme, "system" by default
@@ -13,15 +13,15 @@ export function useThemeHandler() {
 
   // Derived mode and theme
   const resolvedThemeMode = useMemo(() => {
-    return selectedThemeMode === 'system' ? systemThemeMode : selectedThemeMode;
+    return selectedThemeMode === "system" ? systemThemeMode : selectedThemeMode;
   }, [selectedThemeMode, systemThemeMode]);
 
   const theme = useMemo(() => {
-    return resolvedThemeMode === 'dark' ? darkTheme : lightTheme;
+    return resolvedThemeMode === "dark" ? darkTheme : lightTheme;
   }, [resolvedThemeMode]);
 
   const toggleTheme = () => {
-    const next = resolvedThemeMode === 'dark' ? 'light' : 'dark';
+    const next = resolvedThemeMode === "dark" ? "light" : "dark";
     themeStore$.mode.set(next);
   };
 

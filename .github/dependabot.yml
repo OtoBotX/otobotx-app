@@ -3,9 +3,8 @@
 
 version: 2
 updates:
-
   # npm dependencies
-  - package-ecosystem: "npm" 
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -15,7 +14,8 @@ updates:
       - dependency-name: "expo"
     ignore:
       - dependency-name: "*"
-        update-types: ["version-update:semver-patch", "version-update:semver-minor"]
+        update-types:
+          ["version-update:semver-patch", "version-update:semver-minor"]
 
   # GitHub Actions dependencies
   - package-ecosystem: "github-actions"

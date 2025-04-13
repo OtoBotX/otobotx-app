@@ -56,7 +56,7 @@ jobs:
     name: Android Build
     runs-on: ubuntu-latest
     needs: set-build-profile
-    if: ${{ github.event.inputs.android == 'true' || github.event_name == 'pull_request' || github.event_name == 'push' }} 
+    if: ${{ github.event.inputs.android == 'true' || github.event_name == 'pull_request' || github.event_name == 'push' }}
     env:
       PROFILE: ${{ needs.set-build-profile.outputs.PROFILE }}
     steps:

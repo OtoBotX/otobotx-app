@@ -2,6 +2,7 @@
   "name": "otobotx-app",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -9,8 +10,10 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "format": "prettier --write ."
+    "lint:check": "eslint . --ext .ts,.tsx --ignore-pattern app-example/",
+    "lint:fix": "eslint . --ext .ts,.tsx --ignore-pattern app-example/ --fix",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write ."
   },
   "jest": {
     "preset": "jest-expo"

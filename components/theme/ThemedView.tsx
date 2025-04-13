@@ -1,6 +1,6 @@
-import { View, ViewProps } from 'react-native';
-import { useTheme } from 'react-native-paper';
-import type { MD3Theme } from 'react-native-paper';
+import { View, ViewProps } from "react-native";
+import { useTheme } from "react-native-paper";
+import type { MD3Theme } from "react-native-paper";
 
 export default function ThemedView(props: ViewProps) {
   const theme = useTheme<MD3Theme>();

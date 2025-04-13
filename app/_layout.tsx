@@ -1,6 +1,6 @@
-import { Slot } from 'expo-router';
-import { PaperProvider } from 'react-native-paper';
-import { useThemeHandler } from '@/hooks/useThemeHandler';
+import { Slot } from "expo-router";
+import { PaperProvider } from "react-native-paper";
+import { useThemeHandler } from "@/hooks/useThemeHandler";
 
 export default function Layout() {
   const { theme } = useThemeHandler();

@@ -53,7 +53,7 @@ app/
 - Supports multiple environments (`development`, `preview`, `production`).
 
 ```ts
-import Constants from 'expo-constants';
+import Constants from "expo-constants";
 const supabaseUrl = Constants.expoConfig?.extra?.SUPABASE_URL;
 ```
 
@@ -82,7 +82,7 @@ export const theme: MD3LightTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#6200ee',
+    primary: "#6200ee",
   },
 };
 ```
