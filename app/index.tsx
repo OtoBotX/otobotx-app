@@ -1,27 +1,37 @@
 import { Button } from "react-native-paper";
-import ThemedView from "@/components/theme/ThemedView";
-import { ThemedText } from "@/components/theme/ThemedText";
+import AuthView from "@/components/auth/AuthView";
+import ThemedText from "@/components/theme/ThemedText";
 import { router } from "expo-router";
 import { useThemeHandler } from "@/hooks/useThemeHandler";
+import { useLangHandler } from "@/hooks/useLangHandler";
+import { t } from "@/i18n/t";
 
 export default function HomeScreen() {
   const { toggleTheme } = useThemeHandler();
+  const { toggleLang } = useLangHandler();
 
   const goToLogin = () => router.push("/login");
   const goToRegister = () => router.push("/register");
 
   return (
-    <ThemedView style={{ justifyContent: "center", padding: 24 }}>
-      <ThemedText type="title">Welcome to OtoBotX</ThemedText>
-      <Button mode="contained" style={{ marginTop: 16 }} onPress={toggleTheme}>
-        Toggle Theme
+    <AuthView>
+      <ThemedText type="title">{t("onboard.welcome")}</ThemedText>
+
+      <Button mode="contained" onPress={toggleTheme}>
+        {t("onboard.toggleTheme")}
       </Button>
-      <Button mode="outlined" style={{ marginTop: 16 }} onPress={goToLogin}>
-        Login
+
+      <Button mode="contained" onPress={toggleLang}>
+        {t("onboard.toggleLanguage")}
       </Button>
-      <Button mode="outlined" style={{ marginTop: 16 }} onPress={goToRegister}>
-        Register
+
+      <Button mode="outlined" onPress={goToLogin}>
+        {t("onboard.login")}
       </Button>
-    </ThemedView>
+
+      <Button mode="outlined" onPress={goToRegister}>
+        {t("onboard.register")}
+      </Button>
+    </AuthView>
   );
 }

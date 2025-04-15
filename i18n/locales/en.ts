@@ -6,6 +6,13 @@ export const en = {
       signUp: "Sign Up",
       checkEmail: "Check your email to confirm!",
     },
+    onboard: {
+      welcome: "Welcome to OtoBotX",
+      toggleTheme: "Toggle Theme",
+      toggleLanguage: "Change Language",
+      login: "Login",
+      register: "Register"
+    },
     error: {
       requiredField: "This field is required",
       invalidEmail: "Invalid email address",

@@ -1,9 +1,9 @@
+import { langStore$ } from "@/stores/langStore";
 import { tr } from "./locales/tr";
-// import { en } from "./locales/en";
-
-const lang = tr;
+import { en } from "./locales/en";
 
 export const t = (key: string): string => {
+  const lang = langStore$.mode.get() === "en" ? en : tr;
   const parts = key.split(".");
   let current: unknown = lang;
 

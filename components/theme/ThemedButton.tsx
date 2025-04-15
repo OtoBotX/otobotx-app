@@ -10,7 +10,7 @@ export default function ThemedButton(props: React.ComponentProps<typeof Button>)
       contentStyle={{
         backgroundColor: theme.colors.primary,
       }}
-      style={{ borderRadius: 8, marginTop: 8 }}
+      style={{ borderRadius: 8, marginTop: 16 }}
       labelStyle={{ color: theme.colors.onPrimary }}
       {...props}
     >
