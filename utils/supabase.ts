@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import Constants from "expo-constants";
 
-const { SUPABASE_OTOBOTX_URL, SUPABASE_OTOBOTX_ANON_KEY } = Constants.expoConfig?.extra ?? {};
+const { SUPABASE_OTOBOTX_URL, SUPABASE_OTOBOTX_ANON_KEY } = Constants.expoConfig?.extra?.supabase ?? {};
 
 const supabaseUrl = SUPABASE_OTOBOTX_URL!;
 const supabaseAnonKey = SUPABASE_OTOBOTX_ANON_KEY!;
