@@ -1,4 +1,4 @@
-import { Button } from "react-native-paper";
+import ThemedButton from "@/components/theme/ThemedButton";
 import AuthView from "@/components/auth/AuthView";
 import ThemedText from "@/components/theme/ThemedText";
 import { router } from "expo-router";
@@ -17,21 +17,21 @@ export default function HomeScreen() {
     <AuthView>
       <ThemedText type="title">{t("onboard.welcome")}</ThemedText>
 
-      <Button mode="contained" onPress={toggleTheme}>
+      <ThemedButton mode="contained" onPress={toggleTheme}>
         {t("onboard.toggleTheme")}
-      </Button>
+      </ThemedButton>
 
-      <Button mode="contained" onPress={toggleLang}>
+      <ThemedButton mode="contained" onPress={toggleLang}>
         {t("onboard.toggleLanguage")}
-      </Button>
+      </ThemedButton>
 
-      <Button mode="outlined" onPress={goToLogin}>
+      <ThemedButton mode="outlined" onPress={goToLogin}>
         {t("onboard.login")}
-      </Button>
+      </ThemedButton>
 
-      <Button mode="outlined" onPress={goToRegister}>
+      <ThemedButton mode="outlined" onPress={goToRegister}>
         {t("onboard.register")}
-      </Button>
+      </ThemedButton>
     </AuthView>
   );
 }

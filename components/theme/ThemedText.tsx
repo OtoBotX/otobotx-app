@@ -5,7 +5,7 @@ import type { TextProps, MD3Theme } from "react-native-paper";
 type VariantType = "headlineMedium" | "bodyMedium" | "labelLarge";
 
 type ThemedTextProps = TextProps<VariantType> & {
-  type?: "title" | "body" | "label";
+  type?: "title" | "body" | "label" | "link";
 };
 
 export default function ThemedText({
@@ -21,6 +21,7 @@ export default function ThemedText({
   > = {
     title: "headlineMedium",
     body: "bodyMedium",
+    link: "bodyMedium",
     label: "labelLarge",
   };
 
