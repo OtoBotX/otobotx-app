@@ -2,6 +2,7 @@ import { use$ } from "@legendapp/state/react";
 import { userStore$ } from "@/stores/userStore";
 import supabase from "@/utils/supabase";
 import { router } from "expo-router";
+import { t } from "@/i18n/t";
 
 export const useUserHandler = () => {
 
@@ -29,7 +30,7 @@ export const useUserHandler = () => {
         if (error) {
         userStore$.snack.set(error.message);
         } else {
-        userStore$.snack.set("Check your email to confirm!");
+        userStore$.snack.set(t("auth.checkEmail"));
         router.replace("/login");
         }
     };
