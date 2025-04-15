@@ -7,7 +7,7 @@ export const tr = {
       checkEmail: "E-posta adresini onaylamak için gelen kutunu kontrol et!",
     },
     onboard: {
-      welcome: "OtoBotX'e Hoş Geldiniz",
+      welcome: "OtoBotX'a Hoş Geldiniz",
       toggleTheme: "Temayı Değiştir",
       toggleLanguage: "Dili Değiştir",
       login: "Giriş Yap",
