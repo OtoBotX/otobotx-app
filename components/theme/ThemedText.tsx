@@ -8,7 +8,7 @@ type ThemedTextProps = TextProps<VariantType> & {
   type?: "title" | "body" | "label";
 };
 
-export function ThemedText({
+export default function ThemedText({
   type = "body",
   style,
   ...props

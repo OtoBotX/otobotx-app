@@ -1,9 +1,10 @@
 import AuthView from "@/components/auth/AuthView";
-import AuthText from "@/components/auth/AuthText";
-import AuthInput from "@/components/auth/AuthInput";
-import AuthButton from "@/components/auth/AuthButton";
-import AuthSnackbar from "@/components/auth/AuthSnackbar";
+import ThemedText from "@/components/theme/ThemedText";
+import ThemedButton from "@/components/theme/ThemedButton";
+import ThemedInput from "@/components/theme/ThemedInput";
+import ThemedSnackbar from "@/components/theme/ThemedSnackbar";
 import { useUserHandler } from "@/hooks/useUserHandler";
+import { t } from "@/i18n/t";
 
 export default function RegisterScreen() {
   const {
@@ -19,28 +20,28 @@ export default function RegisterScreen() {
 
   return (
     <AuthView>
-      <AuthText>Register</AuthText>
+      <ThemedText type="title">{t("auth.register")}</ThemedText>
 
-      <AuthInput
-        label="Email"
+      <ThemedInput
+        label={t("auth.email")}
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
         autoCapitalize="none"
       />
 
-      <AuthInput
-        label="Password"
+      <ThemedInput
+        label={t("auth.password")}
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
 
-      <AuthButton onPress={handleRegister} loading={loading}>
-        Sign Up
-      </AuthButton>
+      <ThemedButton onPress={handleRegister} loading={loading}>
+        {t("auth.signUp")}
+      </ThemedButton>
 
-      <AuthSnackbar visible={!!snack} onDismiss={() => setSnack("")} message={snack} />
+      <ThemedSnackbar visible={!!snack} onDismiss={() => setSnack("")} message={snack} />
     </AuthView>
   );
 }
