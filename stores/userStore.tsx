@@ -4,13 +4,13 @@ import persistOptions from "./persistConfig";
 
 export const userStore$ = observable({
   email: "",
-  password: "",
+  passwordTemp: "",
   loading: false,
   snack: "",
 });
 
 syncObservable(
-    userStore$,
+    userStore$.email,
     persistOptions({
         persist: {
         name: "userStore$",
