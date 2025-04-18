@@ -59,6 +59,8 @@ jobs:
     if: ${{ github.event.inputs.android == 'true' || github.event_name == 'pull_request' || github.event_name == 'push' }}
     env:
       PROFILE: ${{ needs.set-build-profile.outputs.PROFILE }}
+      SUPABASE_OTOBOTX_URL: ${{ secrets.SUPABASE_OTOBOTX_URL }}
+      SUPABASE_OTOBOTX_ANON_KEY: ${{ secrets.SUPABASE_OTOBOTX_ANON_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -95,6 +97,8 @@ jobs:
     if: ${{ github.event.inputs.ios == 'true' || github.event_name == 'pull_request' || github.event_name == 'push' }}
     env:
       PROFILE: ${{ needs.set-build-profile.outputs.PROFILE }}
+      SUPABASE_OTOBOTX_URL: ${{ secrets.SUPABASE_OTOBOTX_URL }}
+      SUPABASE_OTOBOTX_ANON_KEY: ${{ secrets.SUPABASE_OTOBOTX_ANON_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -128,7 +132,9 @@ jobs:
     name: Web Build
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.web == 'true' || github.event_name == 'pull_request' || github.event_name == 'push' }}
-
+    env:
+      SUPABASE_OTOBOTX_URL: ${{ secrets.SUPABASE_OTOBOTX_URL }}
+      SUPABASE_OTOBOTX_ANON_KEY: ${{ secrets.SUPABASE_OTOBOTX_ANON_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
