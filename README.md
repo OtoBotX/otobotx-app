@@ -31,7 +31,14 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Copy `.env.local.example` and rename to `.env.local`, then set the local environment variables required for Supabase connection which can be found on [your Supabase dashboard](https://supabase.com/dashboard/project/_/settings/ap).
+
+   ```bash
+   SUPABASE_OTOBOTX_URL=
+   SUPABASE_OTOBOTX_ANON_KEY=
+   ```
+
+3. Start the app
 
    ```bash
     npx expo start
