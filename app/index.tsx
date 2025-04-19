@@ -10,7 +10,6 @@ export default function HomeScreen() {
   const { toggleTheme } = useThemeHandler();
   const { toggleLang } = useLangHandler();
 
-  const goToLogin = () => router.push("/login");
   const goToRegister = () => router.push("/register");
 
   return (
@@ -25,12 +24,8 @@ export default function HomeScreen() {
         {t("onboard.toggleLanguage")}
       </ThemedButton>
 
-      <ThemedButton mode="outlined" onPress={goToLogin}>
-        {t("onboard.login")}
-      </ThemedButton>
-
       <ThemedButton mode="outlined" onPress={goToRegister}>
-        {t("onboard.register")}
+        {t("onboard.registerlogin")}
       </ThemedButton>
     </AuthView>
   );
