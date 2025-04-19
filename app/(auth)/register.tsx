@@ -7,6 +7,7 @@ import { useUserHandler } from "@/hooks/useUserHandler";
 import { t } from "@/i18n/t";
 import { useObservable, use$ } from "@legendapp/state/react";
 import { Pressable } from "react-native";
+import { useEffect } from "react";
 
 export default function RegisterLoginScreen() {
   const {
@@ -19,7 +20,12 @@ export default function RegisterLoginScreen() {
     setSnack,
     handleRegister,
     handleLogin,
+    redirectIfAuthenticatedLocally
   } = useUserHandler();
+
+  useEffect(() => {
+    redirectIfAuthenticatedLocally();
+  }, []);
 
   const isLogin = useObservable(true);
   const $ = use$(() => ({
