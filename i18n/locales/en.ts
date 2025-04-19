@@ -1,17 +1,21 @@
 export const en = {
     auth: {
       register: "Register",
+      login: "Login",      
       email: "Email",
       password: "Password",
       signUp: "Sign Up",
+      signIn: "Sign In",
       checkEmail: "Check your email to confirm!",
+      welcomeBack: "Welcome back!",
+      goToRegister: "Don't have an account? Create one.",
+      goToLogin: "Already have an account? Log in."      
     },
     onboard: {
       welcome: "Welcome to OtoBotX",
       toggleTheme: "Toggle Theme",
       toggleLanguage: "Change Language",
-      login: "Login",
-      register: "Register"
+      registerlogin: "Register / Login"
     },
     error: {
       requiredField: "This field is required",
