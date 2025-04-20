@@ -8,13 +8,12 @@ export const tr = {
       signIn: "Giriş",
       checkEmail: "E-posta adresini onaylamak için gelen kutunu kontrol et!",
       welcomeBack: "Hoşgeldiniz!",      
+      goodbye: "Hoşçakalın!",      
       goToRegister: "Bir hesabınız yok mu? Hemen kayıt olun.",
       goToLogin: "Daha önce kayıt oldunuz mu? Hemen giriş yapın."
     },
     onboard: {
       welcome: "OtoBotX'a Hoş Geldiniz",
-      toggleTheme: "Temayı Değiştir",
-      toggleLanguage: "Dili Değiştir",
       registerlogin: "Kayıt Ol / Giriş Yap"
     },
     error: {
@@ -26,5 +25,11 @@ export const tr = {
       confirm: "Onayla",
       cancel: "İptal",
     },
+    settings: {
+      title: "Ayarlar",
+      toggleTheme: "Temayı Değiştir",
+      toggleLang: "Dili Değiştir",
+      logout: "Çıkış Yap",
+    }
   };
   
