@@ -7,7 +7,6 @@ import { useUserHandler } from "@/hooks/useUserHandler";
 import { t } from "@/i18n/t";
 import { useObservable, use$ } from "@legendapp/state/react";
 import { Pressable } from "react-native";
-import { useEffect } from "react";
 
 export default function RegisterLoginScreen() {
 
@@ -33,6 +32,8 @@ export default function RegisterLoginScreen() {
 
   return (
     <AuthView>
+      <ThemedText type="title">{t("onboard.welcome")}</ThemedText>
+
       <ThemedText type="title">{$.modeTitle}</ThemedText>
 
       <ThemedInput
