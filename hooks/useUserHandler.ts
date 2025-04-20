@@ -1,7 +1,6 @@
 import { use$ } from "@legendapp/state/react";
 import { userStore$ } from "@/stores/userStore";
 import supabase from "@/utils/supabase";
-import { router } from "expo-router";
 import { t } from "@/i18n/t";
 
 export const useUserHandler = () => {
@@ -48,19 +47,27 @@ export const useUserHandler = () => {
         if (error) {
           userStore$.snack.set(error.message);
         } else if (session) {
-          userStore$.session.set(session); 
+          // userStore$.session.set(session); // not required as handled by useAuthListener
+          // router.replace("/(tabs)/settings"); // not required as handled by useAuthListener
           userStore$.snack.set(t("auth.welcomeBack"));
-          userStore$.passwordTemp.set(""); // 🔐 cleanup
-          router.replace("/(tabs)/dashboard"); // ⬅️ Redirect to home or dashboard
+          userStore$.passwordTemp.set(""); // 🔐 cleanup password
         }
-    };   
+    }; 
     
-    const redirectIfAuthenticatedLocally = async () => {
-      const session = userStore$.session.get();
-      if (session) {
-        router.replace("/(tabs)/dashboard");
+    const handleLogout = async () => {
+      userStore$.loading.set(true);
+    
+      const { error } = await supabase.auth.signOut()
+      userStore$.loading.set(false);
+    
+      if (error) {
+        userStore$.snack.set(error.message);
+      } else {
+        // userStore$.session.set(null); // not required as handled by useAuthListener
+        userStore$.snack.set(t("auth.goodbye"));
+        // router.replace("/"); // not required as handled by useAuthListener
       }
-    };
+  }; 
 
     return {
         ...$,
@@ -69,6 +76,6 @@ export const useUserHandler = () => {
         setSnack,
         handleRegister,
         handleLogin,
-        redirectIfAuthenticatedLocally
+        handleLogout
     };
 };
