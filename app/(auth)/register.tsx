@@ -20,13 +20,8 @@ export default function RegisterLoginScreen() {
     setPassword,
     setSnack,
     handleRegister,
-    handleLogin,
-    redirectIfAuthenticatedLocally
+    handleLogin
   } = useUserHandler();
-
-  useEffect(() => {
-    redirectIfAuthenticatedLocally();
-  }, []);
 
   const isLogin = useObservable(true);
   const $ = use$(() => ({

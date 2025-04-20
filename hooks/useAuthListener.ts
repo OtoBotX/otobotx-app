@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import supabase from "@/utils/supabase";
 import { userStore$ } from "@/stores/userStore";
+import { router } from "expo-router";
 
 export function useAuthListener() {
   useEffect(() => {
@@ -42,10 +43,15 @@ export function useAuthListener() {
       if (event === "INITIAL_SESSION") {
         console.log("Initial Supabase session from storage is loaded");
         maybeRestoreSession();
+        if (userStore$.session.get()) {
+          router.replace("/(tabs)/dashboard"); // ⬅️ Redirect to dashboard
+        }
       } else if (event === "SIGNED_IN") {
         userStore$.session.set(session);
+        router.replace("/(tabs)/settings"); // ⬅️ Redirect to settings
       } else if (event === "SIGNED_OUT") {
         userStore$.session.set(null);
+        router.replace("/"); // ⬅️ Redirect to index
       } else if (session){
         console.warn("Unaccounted auth event occured!");
         userStore$.session.set(session);
