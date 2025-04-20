@@ -63,10 +63,10 @@ export function useAuthListener() {
         userStore$.session.set(null);
         router.replace("/(auth)/register"); // ⬅️ Redirect to index
       } else if (session){
-        console.log("Unaccounted auth event occured!");
+        console.warn("Unaccounted auth event occured!");
         userStore$.session.set(session);
       } else if (!session) {
-        console.log("⚠️ Auth event occurred but no session provided");
+        console.error("⚠️ Auth event occurred but no session provided");
         userStore$.session.set(null);
       }
     });
@@ -75,7 +75,7 @@ export function useAuthListener() {
       try {
         subscription?.subscription?.unsubscribe?.();
       } catch (err) {
-        console.warn("🧹 Failed to clean up auth subscription", err);
+        console.error("🧹 Failed to clean up auth subscription", err);
       }
     };
   }, []);
