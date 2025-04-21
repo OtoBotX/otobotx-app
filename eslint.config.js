@@ -30,6 +30,11 @@ export default [
       'react/prop-types': 'off',
       'no-console': 'warn',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      "no-console": "off",
+    },
+    env: {
+      browser: true, // if you're using React Native or web
+      node: true,    // if you're using Node APIs like console, require, etc.
     },
     settings: {
       react: {

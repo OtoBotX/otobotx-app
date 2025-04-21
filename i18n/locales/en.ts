@@ -7,14 +7,13 @@ export const en = {
       signUp: "Sign Up",
       signIn: "Sign In",
       checkEmail: "Check your email to confirm!",
-      welcomeBack: "Welcome back!",
+      welcomeBack: "Welcome back!", 
+      goodbye: "Goodbye!",      
       goToRegister: "Don't have an account? Create one.",
       goToLogin: "Already have an account? Log in."      
     },
     onboard: {
       welcome: "Welcome to OtoBotX",
-      toggleTheme: "Toggle Theme",
-      toggleLanguage: "Change Language",
       registerlogin: "Register / Login"
     },
     error: {
@@ -26,5 +25,11 @@ export const en = {
       confirm: "Confirm",
       cancel: "Cancel",
     },
+    settings: {
+      title: "Settings",
+      toggleTheme: "Toggle Theme",
+      toggleLang: "Toggle Language",
+      logout: "Log Out",
+    }
   };
   
