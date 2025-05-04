@@ -50,9 +50,6 @@ export function useAuthListener() {
       }
     };
 
-    // ✅ Always run once on mount
-    maybeRestoreSession();
-
     // Subscribe to Supabase auth state changes
     const { data: subscription } = supabase.auth.onAuthStateChange(async (event, session) => {
       console.log("🔄 Auth Event:", event);
