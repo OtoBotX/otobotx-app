@@ -6,6 +6,9 @@ node_modules/
 # android
 android/
 
+# supabase
+supabase/
+
 # VS Code
 .vscode/*
 
