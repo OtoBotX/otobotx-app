@@ -50,12 +50,18 @@ export function useAuthListener() {
       }
     };
 
+    // ✅ Always run once on mount
+    maybeRestoreSession();
+
     // Subscribe to Supabase auth state changes
     const { data: subscription } = supabase.auth.onAuthStateChange(async (event, session) => {
       console.log("🔄 Auth Event:", event);
       if (event === "INITIAL_SESSION") {
         // console.log("Initial Supabase session from storage is loaded");
         await maybeRestoreSession();
+      } else if (event === "TOKEN_REFRESHED") {
+        userStore$.session.set(session);
+        // Do not redirect
       } else if (event === "SIGNED_IN") {
         userStore$.session.set(session);
         router.replace("/(tabs)/settings"); // ⬅️ Redirect to settings
