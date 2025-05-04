@@ -74,7 +74,7 @@ export default function RegisterLoginScreen() {
         label={t("auth.password")}
         value={password}
         onChangeText={setPassword}
-        secureTextEntry
+        secureTextEntry={true}
       />
 
       {!isLogin && (
