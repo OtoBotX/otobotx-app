@@ -5,10 +5,12 @@ import ThemedInput from "@/components/theme/ThemedInput";
 import ThemedSnackbar from "@/components/theme/ThemedSnackbar";
 import ThemedPicker from "@/components/theme/ThemedPicker";
 import { useUserHandler } from "@/hooks/useUserHandler";
+import { useLangHandler } from "@/hooks/useLangHandler";
 import { t } from "@/i18n/t";
 import { use$ } from "@legendapp/state/react";
 import { Pressable } from "react-native";
-import { langStore$, langOptions } from "@/stores/langStore";
+import { langOptions } from "@/stores/langStore";
+import { router } from "expo-router";
 
 function formatName(input: string): string {
   return input
@@ -23,6 +25,8 @@ function formatName(input: string): string {
 }
 
 export default function RegisterLoginScreen() {
+
+  const {lang, setLang} = useLangHandler();
 
   const {
     email,
@@ -76,7 +80,7 @@ export default function RegisterLoginScreen() {
         secureTextEntry={true}
       />
 
-      {!isLogin && (
+      {!isLogin ? (
         <>
           <ThemedInput
             label={t("auth.firstName")}
@@ -104,7 +108,16 @@ export default function RegisterLoginScreen() {
             items={officeRoleItems}
           />
         </>
-      )}
+        ): (
+          <Pressable onPress={() => {
+            router.push("/(auth)/reset-password"); 
+            }} style={{ paddingVertical: 8 }}>
+            <ThemedText type="link" style={{ textAlign: "center" }}>
+              {t("auth.resetPassword")}
+            </ThemedText>
+          </Pressable>
+        )
+        }
 
       <ThemedButton onPress={$.modeHandler} loading={loading}>
         {$.modeButton}
@@ -121,8 +134,8 @@ export default function RegisterLoginScreen() {
       
       <ThemedPicker
         label=""
-        selectedValue={langStore$.mode.get()}
-        onValueChange={langStore$.mode.set}
+        selectedValue={lang}
+        onValueChange={setLang}
         items={langOptions}
         icon="earth" // Use Paper's "earth" icon (or your own)
         style={{

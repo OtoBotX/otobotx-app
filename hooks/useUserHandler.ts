@@ -29,6 +29,40 @@ function validateUserRegister(): { success: true } | { success: false; message: 
 }
 
 
+function validateEmail(): { success: true } | { success: false; message: string } {
+  const result = userSignUpSchema.pick({ email: true }).safeParse({
+    email: userStore$.email.get(),
+  });
+
+  if (!result.success) {
+    const err = result.error.errors[0];
+    return {
+      success: false,
+      message: `${t("validation.registration.fields." + err.path[0])}: ${t("validation.registration.errors." + err.message)}`,
+    };
+  }
+
+  return { success: true };
+}
+
+function validatePasswordReset(): { success: true } | { success: false; message: string } {
+  const result = userSignUpSchema.pick({ password: true }).safeParse({
+    password: userStore$.passwordTemp.get(),
+  });
+
+  if (!result.success) {
+    const err = result.error.errors[0];
+    return {
+      success: false,
+      message: `${t("validation.registration.fields." + err.path[0])}: ${t("validation.registration.errors." + err.message)}`,
+    };
+  }
+
+  return { success: true };
+}
+
+
+
 export const useUserHandler = () => {
 
     const dropdownLoaded = useRef(false);
@@ -72,7 +106,9 @@ export const useUserHandler = () => {
         officeRoleItems: userStore$.roles.get().map((r) => ({
           label: r.name,
           value: r.id,
-        }))
+        })),
+        passwordResetRequested: userStore$.passwordResetRequested.get(),
+        passwordResetToken: userStore$.passwordResetToken.get(),
     }));
 
     const setEmail = userStore$.email.set;
@@ -83,6 +119,8 @@ export const useUserHandler = () => {
     const setLastName = userStore$.last_name.set;
     const setOfficeId = userStore$.office_id.set;
     const setOfficeRoleId = userStore$.office_role_id.set;
+    const setPasswordResetRequested = userStore$.passwordResetRequested.set;
+    const setPasswordResetToken = userStore$.passwordResetToken.set;
 
     const handleRegister = async () => {
         userStore$.loading.set(true);
@@ -154,6 +192,69 @@ export const useUserHandler = () => {
       }
   }; 
 
+  
+  const handlePasswordReset = async () => {
+
+    const validation = validateEmail()
+    if (!validation.success) {
+      userStore$.snack.set(validation.message);
+      console.log(validation.message)
+      userStore$.loading.set(false);
+      return;
+    }
+
+    const email = userStore$.email.get();
+    userStore$.loading.set(true);
+  
+    const { error } = await supabase.auth.resetPasswordForEmail(email);
+  
+    userStore$.loading.set(false);
+  
+    if (error) {
+      userStore$.snack.set(error.message);
+    } else {
+      userStore$.passwordResetRequested.set(true);
+      userStore$.passwordTemp.set(""); // 🔐 cleanup password
+      userStore$.passwordResetToken.set(""); // 🔐 cleanup password reset token
+      userStore$.snack.set(t("auth.checkEmailPasswordReset"));
+    }
+  };
+
+  const handlePasswordUpdate = async () => {
+    
+    const validation = validatePasswordReset();
+    if (!validation.success) {
+      userStore$.snack.set(validation.message);
+      console.log(validation.message)
+      userStore$.loading.set(false);
+      return;
+    }
+
+    userStore$.loading.set(true);
+
+    const { data, error: sessionError } = await supabase.auth.verifyOtp({
+      token_hash: userStore$.passwordResetToken.get(),
+      type: 'email',
+    });
+
+    if (sessionError || !data.session) {
+      console.log(sessionError)
+      userStore$.loading.set(false);
+      userStore$.snack.set(t("auth.invalidOrExpiredToken"));
+      return;
+    }
+
+    const { error } = await supabase.auth.updateUser({ password: userStore$.passwordTemp.get() });
+    userStore$.loading.set(false);
+
+    if (error) {
+      userStore$.snack.set(error.message);
+    } else {
+      userStore$.passwordResetRequested.set(false); // successfull reset completed
+      userStore$.snack.set(t("auth.passwordResetSuccessful"));
+    }
+  };
+
     return {
         ...$,
         setEmail,
@@ -164,8 +265,12 @@ export const useUserHandler = () => {
         setLastName,
         setOfficeId,
         setOfficeRoleId,
+        setPasswordResetToken,
+        setPasswordResetRequested,
         handleRegister,
         handleLogin,
-        handleLogout
+        handleLogout,
+        handlePasswordUpdate,
+        handlePasswordReset
     };
 };

@@ -59,10 +59,10 @@ export function useAuthListener() {
       } else if (event === "TOKEN_REFRESHED") {
         userStore$.session.set(session);
         // Do not redirect
-      } else if (event === "SIGNED_IN") {
+      } else if (event === "SIGNED_IN" || event === "USER_UPDATED") { // user updated is emitted when password is reset
         userStore$.session.set(session);
         router.replace("/(tabs)/settings"); // ⬅️ Redirect to settings
-      } else if (event === "SIGNED_OUT") {
+      } else if (event === "SIGNED_OUT"){
         userStore$.session.set(null);
         router.replace("/(auth)/register"); // ⬅️ Redirect to index
       } else if (session){
