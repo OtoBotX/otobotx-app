@@ -22,7 +22,6 @@ function formatName(input: string): string {
     .join(" ");
 }
 
-
 export default function RegisterLoginScreen() {
 
   const {
