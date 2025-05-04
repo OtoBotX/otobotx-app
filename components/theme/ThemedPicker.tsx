@@ -1,25 +1,29 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet, Pressable, ViewStyle } from "react-native";
 import { Menu, TextInput, useTheme } from "react-native-paper";
 
-type PickerItem = {
+type PickerItem<T extends string | number> = {
   label: string;
-  value: number;
+  value: T;
 };
 
-type Props = {
+type Props<T extends string | number> = {
   label: string;
-  selectedValue: number | null;
-  onValueChange: (val: number) => void;
-  items: PickerItem[];
+  selectedValue: T | null;
+  onValueChange: (val: T) => void;
+  items: readonly PickerItem<T>[];
+  icon?: string;
+  style?: ViewStyle;
 };
 
-export default function ThemedPickerMenuWorking({
+export default function ThemedPickerMenuWorking<T extends string | number>({
   label,
   selectedValue,
   onValueChange,
   items,
-}: Props) {
+  icon,
+  style,
+}: Props<T>) {
   const [visible, setVisible] = useState(false);
   const theme = useTheme();
 
@@ -27,7 +31,7 @@ export default function ThemedPickerMenuWorking({
     items.find((i) => i.value === selectedValue)?.label ?? "";
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Menu
         visible={visible}
         onDismiss={() => setVisible(false)}
@@ -39,7 +43,11 @@ export default function ThemedPickerMenuWorking({
               mode="outlined"
               editable={false}
               pointerEvents="none"
-              right={<TextInput.Icon icon="menu-down" onPress={() => setVisible(true)} />}
+              right={icon ? (
+                <TextInput.Icon icon={icon} onPress={() => setVisible(true)}/>
+              ) : (
+                <TextInput.Icon icon="menu-down" onPress={() => setVisible(true)}/>
+              )}
               outlineColor={theme.colors.outline}
               activeOutlineColor={theme.colors.primary}
               theme={{ colors: { text: theme.colors.onSurface } }}

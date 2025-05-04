@@ -6,8 +6,9 @@ import ThemedSnackbar from "@/components/theme/ThemedSnackbar";
 import ThemedPicker from "@/components/theme/ThemedPicker";
 import { useUserHandler } from "@/hooks/useUserHandler";
 import { t } from "@/i18n/t";
-import { useObservable, use$ } from "@legendapp/state/react";
+import { use$ } from "@legendapp/state/react";
 import { Pressable } from "react-native";
+import { langStore$, langOptions } from "@/stores/langStore";
 
 function formatName(input: string): string {
   return input
@@ -57,6 +58,14 @@ export default function RegisterLoginScreen() {
 
   return (
     <AuthView>
+      <ThemedPicker
+        label=""
+        selectedValue={langStore$.mode.get()}
+        onValueChange={langStore$.mode.set}
+        items={langOptions}
+        icon="earth" // Use Paper's "earth" icon (or your own)
+        style={{ width: 200 }}
+      />
       <ThemedText type="title">{t("onboard.welcome")}</ThemedText>
 
       <ThemedText type="title">{$.modeTitle}</ThemedText>
