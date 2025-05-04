@@ -21,6 +21,10 @@ export const userStore$ = observable({
   // ⬇️ Registration dropdown data
   offices: [] as { id: number; uname: string }[],
   roles: [] as { id: number; name: string }[],
+
+  // About password reset
+  passwordResetRequested: false,
+  passwordResetToken: ""
 });
 
 // Persist only specific fields:

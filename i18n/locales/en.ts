@@ -14,11 +14,20 @@ export const en = {
       role: "Role at the Office",
       office: "Registered Office",
       firstName: "First Name",
-      lastName: "Last Name"
+      lastName: "Last Name",
+      resetPassword: "Forgotten your password? Reset now.",
+      checkEmailPasswordReset: "Check your email to reset your password!",
+      passwordResetSuccessful: "Password updated successfully. You may now log in.",
+      backtoLogin: "Back to login.",
+      passwordResetRequest: "Request New Password",
+      newPassword: "Set New Password",
+      passwordResetToken: "Password Reset Token",
+      invalidOrExpiredToken: "Invalid or expired token."
     },
     onboard: {
       welcome: "Welcome to OtoBotX",
-      registerlogin: "Register / Login"
+      registerlogin: "Register / Login",
+      passwordReset: "Password Reset"
     },
     error: {
       requiredField: "This field is required",
