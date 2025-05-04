@@ -14,11 +14,15 @@ export const tr = {
       role: "Ofisteki Pozisyonun",
       office: "Kayıtlı Olduğun Ofis",
       firstName: "Ad",
-      lastName: "Soyad"
+      lastName: "Soyad",
+      resetPassword: "Şifrenizi mi unuttunuz? Şifrenizi sıfırlayın.",
+      checkEmailPasswordReset: "Yeni şifreni belirlemek için gelen kutunu kontrol et!",
+      passwordResetSuccessful: "Şifreniz başarıyla güncellendi. Artık giriş yapabilirsiniz.",
     },
     onboard: {
       welcome: "OtoBotX'a Hoş Geldiniz",
-      registerlogin: "Kayıt Ol / Giriş Yap"
+      registerlogin: "Kayıt Ol / Giriş Yap",
+      passwordReset: "Şifrenizi Sıfırlayın"
     },
     error: {
       requiredField: "Bu alan zorunludur",

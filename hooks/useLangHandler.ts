@@ -9,8 +9,12 @@ export const useLangHandler = () => {
     langStore$.mode.set(current === "tr" ? "en" : "tr");
   };
 
+  const setLang = langStore$.mode.set;
+
   return {
     mode,
-    toggleLang
+    toggleLang,
+    lang :mode,
+    setLang,
   };
 };

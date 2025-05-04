@@ -28,6 +28,22 @@ function validateUserRegister(): { success: true } | { success: false; message: 
   return { success: true };
 }
 
+function validatePasswordReset(): { success: true } | { success: false; message: string } {
+  const result = userSignUpSchema.safeParse({
+    password: userStore$.passwordTemp.get(),
+  });
+
+  if (!result.success) {
+    const err = result.error.errors[0];
+    return {
+      success: false,
+      message: `${t("validation.registration.fields." + err.path[0])}: ${t("validation.registration.errors." + err.message)}`,
+    };
+  }
+
+  return { success: true };
+}
+
 
 export const useUserHandler = () => {
 
@@ -114,10 +130,57 @@ export const useUserHandler = () => {
           userStore$.snack.set(error.message);
           console.log(error.message)
         } else if (user) {
+          userStore$.passwordTemp.set(""); // do not save password
           userStore$.session.set(session); // If Confirm email is enabled, a user is returned but session is null.
           userStore$.snack.set(t("auth.checkEmail"));
           setLogin(true);
         } 
+    };
+
+    const handlePasswordReset = async () => {
+      const email = userStore$.email.get();
+      userStore$.loading.set(true);
+    
+      if (!email || !email.includes("@")) {
+        userStore$.snack.set(t("auth.invalidEmail"));
+        userStore$.loading.set(false);
+        return;
+      }
+    
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: "otobotx://reset-password", // change if you're using hosted web
+      });
+    
+      userStore$.loading.set(false);
+    
+      if (error) {
+        console.error("🔒 Password reset error:", error.message);
+        userStore$.snack.set(error.message);
+      } else {
+        userStore$.snack.set(t("auth.checkEmailPasswordReset"));
+      }
+    };
+
+    const handlePasswordUpdate = async () => {
+      
+      const validation = validatePasswordReset();
+      if (!validation.success) {
+        userStore$.snack.set(validation.message);
+        console.log(validation.message)
+        userStore$.loading.set(false);
+        return;
+      }
+
+      userStore$.loading.set(true);
+      const { error } = await supabase.auth.updateUser({ password: userStore$.passwordTemp.get() });
+      userStore$.loading.set(false);
+  
+      if (error) {
+        userStore$.snack.set(error.message);
+      } else {
+        userStore$.snack.set(t("auth.passwordResetSuccessful"));
+        router.replace("/(auth)/register");
+      }
     };
 
     const handleLogin = async () => {
@@ -166,6 +229,8 @@ export const useUserHandler = () => {
         setOfficeRoleId,
         handleRegister,
         handleLogin,
-        handleLogout
+        handleLogout,
+        handlePasswordReset,
+        handlePasswordUpdate
     };
 };

@@ -5,7 +5,8 @@ export default {
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
-    scheme: "myapp",
+    scheme: "otobotx",
+    deepLinks: ["otobotx://*"],
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
     ios: {
@@ -18,6 +19,16 @@ export default {
         backgroundColor: "#000000",
       },
       package: "com.btakim.otobotxapp",
+      intentFilters: [
+        {
+          "action": "VIEW",
+          "data": {
+            "scheme": "otobotx",
+            "host": "*"
+          },
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ],
     },
     web: {
       bundler: "metro",

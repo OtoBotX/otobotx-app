@@ -3,6 +3,7 @@ import supabase from "@/utils/supabase";
 import { userStore$ } from "@/stores/userStore";
 import { router } from "expo-router";
 import { isEmpty } from "@legendapp/state";
+import { Linking } from "react-native";
 
 export function useAuthListener() {
   useEffect(() => {
@@ -55,6 +56,12 @@ export function useAuthListener() {
       console.log("🔄 Auth Event:", event);
       if (event === "INITIAL_SESSION") {
         // console.log("Initial Supabase session from storage is loaded");
+        const url = await Linking.getInitialURL();
+        if (url && url.includes("reset-password")) {
+          router.replace("/(auth)/reset-password"); // ⬅️ Redirect to index
+          console.log("🔁 Detected reset-password deep link, skipping auto redirect.");
+          return;
+        }
         await maybeRestoreSession();
       } else if (event === "TOKEN_REFRESHED") {
         userStore$.session.set(session);
