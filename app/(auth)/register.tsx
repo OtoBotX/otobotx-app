@@ -58,14 +58,6 @@ export default function RegisterLoginScreen() {
 
   return (
     <AuthView>
-      <ThemedPicker
-        label=""
-        selectedValue={langStore$.mode.get()}
-        onValueChange={langStore$.mode.set}
-        items={langOptions}
-        icon="earth" // Use Paper's "earth" icon (or your own)
-        style={{ width: 200 }}
-      />
       <ThemedText type="title">{t("onboard.welcome")}</ThemedText>
 
       <ThemedText type="title">{$.modeTitle}</ThemedText>
@@ -127,6 +119,18 @@ export default function RegisterLoginScreen() {
           {$.modeNext}
         </ThemedText>
       </Pressable>
+      
+      <ThemedPicker
+        label=""
+        selectedValue={langStore$.mode.get()}
+        onValueChange={langStore$.mode.set}
+        items={langOptions}
+        icon="earth" // Use Paper's "earth" icon (or your own)
+        style={{
+          width: 80,
+          alignSelf: "center",    // ✅ center horizontally
+        }}
+      />
 
       <ThemedSnackbar visible={!!snack} onDismiss={() => setSnack("")} message={snack} />
     </AuthView>

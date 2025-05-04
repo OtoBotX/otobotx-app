@@ -3,8 +3,8 @@ import { syncObservable } from "@legendapp/state/sync";
 import persistOptions from "./persistConfig";
 
 export const langOptions = [
-  { label: "English", value: "en" },
-  { label: "Türkçe", value: "tr" },
+  { label: "EN", value: "en" },
+  { label: "TR", value: "tr" },
 ] as const;
 
 type langType = typeof langOptions[number]["value"];
