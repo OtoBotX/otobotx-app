@@ -4,11 +4,11 @@ import ThemedButton from "@/components/theme/ThemedButton";
 import ThemedInput from "@/components/theme/ThemedInput";
 import ThemedSnackbar from "@/components/theme/ThemedSnackbar";
 import ThemedPicker from "@/components/theme/ThemedPicker";
+import ThemedPressable from "@/components/theme/ThemedPressable";
 import { useUserHandler } from "@/hooks/useUserHandler";
 import { useLangHandler } from "@/hooks/useLangHandler";
 import { t } from "@/i18n/t";
 import { use$ } from "@legendapp/state/react";
-import { Pressable } from "react-native";
 import { langOptions } from "@/stores/langStore";
 import { router } from "expo-router";
 
@@ -109,13 +109,13 @@ export default function RegisterLoginScreen() {
           />
         </>
         ): (
-          <Pressable onPress={() => {
+          <ThemedPressable onPress={() => {
             router.push("/(auth)/reset-password"); 
-            }} style={{ paddingVertical: 8 }}>
+            }} >
             <ThemedText type="link" style={{ textAlign: "center" }}>
               {t("auth.resetPassword")}
             </ThemedText>
-          </Pressable>
+          </ThemedPressable>
         )
         }
 
@@ -123,14 +123,14 @@ export default function RegisterLoginScreen() {
         {$.modeButton}
       </ThemedButton>
 
-      <Pressable onPress={() => {
+      <ThemedPressable onPress={() => {
         setLogin(!isLogin); // handle login / register mode
         setPassword(""); // reset password
-        }} style={{ paddingVertical: 8 }}>
+        }}>
         <ThemedText type="link" style={{ textAlign: "center" }}>
           {$.modeNext}
         </ThemedText>
-      </Pressable>
+      </ThemedPressable>
       
       <ThemedPicker
         label=""

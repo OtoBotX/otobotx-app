@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
-import { View } from "react-native";
-import { useLocalSearchParams, router } from "expo-router";
-import supabase from "@/utils/supabase";
 import ThemedInput from "@/components/theme/ThemedInput";
 import ThemedButton from "@/components/theme/ThemedButton";
 import ThemedText from "@/components/theme/ThemedText";
+import ThemedPressable from "@/components/theme/ThemedPressable";
 import { t } from "@/i18n/t";
 import AuthView from "@/components/auth/AuthView";
 import { useUserHandler } from "@/hooks/useUserHandler";
 import ThemedSnackbar from "@/components/theme/ThemedSnackbar";
-import { Pressable } from "react-native";
 import { use$ } from "@legendapp/state/react";
+import { router } from "expo-router";
 
 export default function ResetPasswordScreen() {
 
@@ -58,14 +55,16 @@ export default function ResetPasswordScreen() {
         {$.modeButton}
       </ThemedButton>
 
-      <Pressable onPress={() => {
-            setPasswordResetRequested(false),
-            router.back(); 
-            }} style={{ paddingVertical: 8 }}>
-            <ThemedText type="link" style={{ textAlign: "center" }}>
-            {t("auth.backtoLogin")}
-            </ThemedText>
-        </Pressable>
+      <ThemedPressable
+        onPress={() => {
+          setPasswordResetRequested(false);
+          router.back();
+        }}
+      >
+        <ThemedText type="link" style={{ textAlign: "center" }}>
+          {t("auth.backtoLogin")}
+        </ThemedText>
+      </ThemedPressable>
 
       <ThemedSnackbar visible={!!snack} onDismiss={() => setSnack("")} message={snack} />
     </AuthView>
