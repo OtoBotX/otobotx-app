@@ -20,13 +20,7 @@ export function useThemeHandler() {
     return resolvedThemeMode === "dark" ? darkTheme : lightTheme;
   }, [resolvedThemeMode]);
 
-  const toggleTheme = () => {
-    const next = resolvedThemeMode === "dark" ? "light" : "dark";
-    themeStore$.mode.set(next);
-  };
-
   return {
-    theme,
-    toggleTheme,
+    theme
   };
 }
