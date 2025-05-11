@@ -16,6 +16,12 @@ export default function SettingsView({ children, withBack = false, title, style 
   const theme = useTheme();
   return (
     <ThemedView>
+        {withBack && (
+            <Appbar.Header elevated>
+            <Appbar.BackAction onPress={() => router.push('/(tabs)/settings')} color={theme.colors.onSurface} />
+            <Appbar.Content title={title ?? ''} titleStyle={{ color: theme.colors.onSurface }} />
+            </Appbar.Header>
+        )}
         <ScrollView
         contentContainerStyle={[
             {
@@ -27,12 +33,6 @@ export default function SettingsView({ children, withBack = false, title, style 
             style,
         ]}
         >
-        {withBack && (
-            <Appbar.Header elevated>
-            <Appbar.BackAction onPress={() => router.push('/(tabs)/settings')} color={theme.colors.onSurface} />
-            <Appbar.Content title={title ?? ''} titleStyle={{ color: theme.colors.onSurface }} />
-            </Appbar.Header>
-        )}
         {children}
         </ScrollView>
     </ThemedView>
