@@ -61,7 +61,24 @@ function validatePasswordReset(): { success: true } | { success: false; message:
   return { success: true };
 }
 
-
+const loadUserProfile = async () => {
+    
+  const session = userStore$.session.get();
+  const email = session?.user.email;
+  const uid = session?.user.id;
+  const { data: profileData, error: userError } = await supabase
+    .from("Users")
+    .select("*") // no joins!
+    .single()
+  if (userError) {
+    console.error("Failed to fetch user table", userError);
+    return;
+  }
+  userStore$.email.set(email ?? "");
+  userStore$.first_name.set(profileData.first_name);
+  userStore$.last_name.set(profileData.last_name);
+  userStore$.isAdmin.set(profileData.isAdmin);
+};
 
 export const useUserHandler = () => {
 
@@ -87,6 +104,15 @@ export const useUserHandler = () => {
         dropdownLoaded.current = true;
       }
     }, []);
+
+    const session = use$(() => userStore$.session);
+    const hasFetchedProfile = useRef(false);
+    useEffect(() => {
+      if (session) {
+        loadUserProfile();
+        hasFetchedProfile.current = true;
+      }
+    }, [session]);
 
     const $ = use$(() => ({
         email: userStore$.email.get(),

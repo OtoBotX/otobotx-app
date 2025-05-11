@@ -6,27 +6,25 @@ import { useMemo } from "react";
 
 export function useThemeHandler() {
   // User-set color scheme, "system" by default
-  const selectedThemeMode = use$(() => themeStore$.mode.get());
+  const themeMode = use$(() => themeStore$.mode.get());
+
+  const setThemeMode = themeStore$.mode.set;
 
   // System color scheme
-  const systemThemeMode = useColorScheme();
+  const systemThemeMode = useColorScheme(); 
 
   // Derived mode and theme
   const resolvedThemeMode = useMemo(() => {
-    return selectedThemeMode === "system" ? systemThemeMode : selectedThemeMode;
-  }, [selectedThemeMode, systemThemeMode]);
+    return themeMode === "system" ? systemThemeMode : themeMode;
+  }, [themeMode, systemThemeMode]);
 
   const theme = useMemo(() => {
     return resolvedThemeMode === "dark" ? darkTheme : lightTheme;
   }, [resolvedThemeMode]);
 
-  const toggleTheme = () => {
-    const next = resolvedThemeMode === "dark" ? "light" : "dark";
-    themeStore$.mode.set(next);
-  };
-
   return {
     theme,
-    toggleTheme,
+    themeMode,
+    setThemeMode
   };
 }
