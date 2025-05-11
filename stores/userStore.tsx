@@ -15,6 +15,7 @@ export const userStore$ = observable({
   // 👤 Registration fields
   first_name: "",
   last_name: "",
+  isAdmin: null as boolean | null,
   office_id: null as number | null,
   office_role_id: null as number | null,
 
