@@ -29,7 +29,7 @@ export default function SettingsView({ children, withBack = false, title, style 
         >
         {withBack && (
             <Appbar.Header elevated>
-            <Appbar.BackAction onPress={router.back} color={theme.colors.onSurface} />
+            <Appbar.BackAction onPress={() => router.push('/(tabs)/settings')} color={theme.colors.onSurface} />
             <Appbar.Content title={title ?? ''} titleStyle={{ color: theme.colors.onSurface }} />
             </Appbar.Header>
         )}

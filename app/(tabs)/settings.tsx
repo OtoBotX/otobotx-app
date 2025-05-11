@@ -40,7 +40,7 @@ export default function SettingsPage() {
           <SettingsOption
             icon="logout"
             label={t('settings.logout')}
-            onPress={() => handleLogout}
+            onPress={handleLogout}
           />
         </SettingsSection>
 
@@ -61,6 +61,7 @@ export default function SettingsPage() {
           <SettingsOption
             icon="information"
             label={t('settings.version')}
+            pressable={false}
             value={"v"+config.expo.version}
           />
           <SettingsOption
