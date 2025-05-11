@@ -7,7 +7,6 @@ export const useLangHandler = () => {
   const setLang = langStore$.mode.set;
 
   return {
-    mode,
     lang :mode,
     setLang,
   };
