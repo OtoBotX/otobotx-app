@@ -54,6 +54,11 @@ export const tr = {
       terms: "Kullanım Şartları",
       privacy: "Veri Koruma",
       reportProblem: "Sorun Bildir",
+      themeModes: {
+        light: "Açık Tema",
+        dark: "Koyu Tema",
+        system: "Sistem Teması",
+      },
     },
     tabs: {
       dashboard: "İş Paneli",

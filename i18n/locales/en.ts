@@ -54,6 +54,11 @@ export const en = {
       terms: "Terms of Use",
       privacy: "Data Protection",
       reportProblem: "Report a Problem",
+      themeModes: {
+        light: "Light Theme",
+        dark: "Dark Theme",
+        system: "System Theme",
+      },
     },
     tabs: {
       dashboard: "Dashboard",
