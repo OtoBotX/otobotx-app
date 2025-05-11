@@ -28,6 +28,7 @@ export default function SettingsView({ children, withBack = false, title, style 
             paddingHorizontal: 24,
             paddingTop: withBack ? 0 : 24,
             flexGrow: 1,
+            marginTop: 10,
             justifyContent: 'flex-start',
             },
             style,
